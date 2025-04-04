@@ -114,11 +114,44 @@
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="" class="form-label">Description</label>
+                            <label for="" class="form-label">Welcome Description</label>
                             <textarea class="form-control description" name="description" id="" rows="3">{!! $setting->description ?? '' !!}</textarea>
                         </div>
-                        <div class="mb-3">
-                            <label for="" class="form-label">Work Description</label>
+                        <div class="col-md-6">
+                            <label for="" class="form-label">Welcome Image</label>
+                            <input type="file" name="welcome_image" id=""
+                                class="form-control @error('welcome_image') is-invalid @enderror" placeholder=""
+                                aria-describedby="helpId" />
+                            @error('welcome_image')
+                                <small id="helpId" class="text-danger">{{ $message }}</small>
+                            @enderror
+
+                            @if ($setting->welcome_image !== null)
+                                <div>
+                                    <img src="/storage/{{ $setting->welcome_image }}" alt="" srcset="" width="100"
+                                        height="100">
+                                </div>
+                            @endif
+                        </div>
+                        <div class="col-md-6">
+                            <label for="" class="form-label">About Image</label>
+                            <input type="file" name="about_image" id=""
+                                class="form-control @error('about_image') is-invalid @enderror" placeholder=""
+                                aria-describedby="helpId" />
+                            @error('about_image')
+                                <small id="helpId" class="text-danger">{{ $message }}</small>
+                            @enderror
+
+                            @if ($setting->about_image !== null)
+                                <div>
+                                    <img src="/storage/{{ $setting->about_image }}" alt="" srcset="" width="100"
+                                        height="100">
+                                </div>
+                            @endif
+                        </div>
+
+                        <div class="mb-3 mt-2">
+                            <label for="" class="form-label">About Description</label>
                             <textarea class="form-control description" name="work_description" id="" rows="3">{!! $setting->work_description ?? '' !!}</textarea>
                         </div>
 
@@ -172,7 +205,7 @@
                     <div class="row">
                         <div class="col-md-3">
                             <label for="" class="form-label">Days<span class="text-danger">*</span></label>
-                            <select multiple class="form-select p-4 form-select-lg multiple-days-select" 
+                            <select multiple class="form-select p-4 form-select-lg multiple-days-select"
                                 name="days[]" id="multiple-days">
                                 <option value="Sunday">Sunday</option>
                                 <option value="Monday">Monday</option>

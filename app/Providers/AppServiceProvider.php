@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\Setting;
 use App\Models\frontend;
+use App\Models\Service;
 use App\Models\WorkingDay;
 use Illuminate\Pagination\Paginator;
 // use Illuminate\Routing\Route;
@@ -26,11 +27,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        View::composer(['User.layout.header', 'User.layout.main', 'User.layout.footer', 'User.contact', 'User.about'], function ($view) {
+        View::composer(['User.layout.header', 'frontend.layout.main','frontend.layout.footer', 'User.layout.main', 'User.layout.footer', 'User.contact', 'User.about'], function ($view) {
             $setting = Setting::first();
-            
+            $services=Service::where('status','1')->get();
+
             $view->with([
                 'email' => $setting->email ?? '',
+                'title' => $setting->title ?? '',
                 'address' => $setting->address ?? '',
                 'contact' => $setting->contact ?? '',
                 'description' => $setting->description ?? '',
@@ -41,7 +44,8 @@ class AppServiceProvider extends ServiceProvider
                 'instagram' => $setting->instagram_url ?? '',
                 'github' => $setting->github_url ?? '',
                 'workdesc'=>WorkingDay::all(),
-                
+                'services'=>$services
+
             ]);
         });
 

@@ -178,9 +178,10 @@ $(document).ready(function () {
             event.preventDefault();
             $(".updateBtn").prop("disabled", true);
             let formdata = new FormData(this);
+            formdata.append("_method","PUT");
             $.ajax({
                 type: "post",
-                url: "/admin/testimonial/update/" + id,
+                url: "/admin/service/" + id,
                 data: formdata,
                 processData: false,
                 contentType: false,
@@ -189,7 +190,7 @@ $(document).ready(function () {
                         Swal.fire({
                             icon: "success",
                             title: "Success",
-                            text: "Testimonial Updated Successfully",
+                            text: "Service Updated Successfully",
                             showConfirmButton: false,
                             timer: 1000
                         });
@@ -237,7 +238,7 @@ $(document).ready(function () {
             if (result.isConfirmed) {
                 $.ajax({
                     type: "get",
-                    url: "/admin/testimonial/status/" + id,
+                    url: "/admin/service/status/" + id,
                     success: function () {
                         // console.log(response);
                         checkbox.prop("disabled", false);
@@ -269,13 +270,15 @@ $(document).ready(function () {
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    type: "get",
-                    url: "/admin/testimonial/delete/" + id,
+                    type: "delete",
+                    headers:
+                    { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                    url: "/admin/service/" + id,
                     success: function (response) {
                         if (response.success == true) {
                             Swal.fire({
                                 icon: "success",
-                                title: "Testimonial Deleted Successfully",
+                                title: "Service Deleted Successfully",
                                 showConfirmButton: false,
                                 timer: 1500
                             })

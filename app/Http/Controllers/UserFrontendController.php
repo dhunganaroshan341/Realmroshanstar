@@ -24,12 +24,12 @@ class UserFrontendController extends Controller
         $testimonials=Testimonial::where('status','Active')->get();
         $notice=Notice::where('status','Active')->first();
         // dd($notice);
-        return view('User.home',compact(['frontend','homeslides','testimonials','notice']));
+        return view('frontend.home',compact(['frontend','homeslides','testimonials','notice']));
     }
     public function aboutUs(){
         $users=User::where('role','Admin')->get();
         $frontend=Setting::first();
-        return view('User.about',compact('users','frontend'));
+        return view('frontend.about',compact('users','frontend'));
     }
 
     public function contactUs(){

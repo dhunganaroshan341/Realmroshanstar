@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\HomeSliderController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ClientController;
 use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\FrontendController as AdminFrontendController;
 use App\Http\Controllers\Admin\NoticeController;
@@ -115,6 +116,12 @@ Route::middleware('admin')->group(function () {
     Route::get('/admin/notice/status/{id}',[NoticeController::class,'toggleStatus']);
 
     Route::resource('admin/service',ServiceController::class);
+    Route::get('/admin/service/status/{id}',[ServiceController::class,'toggleStatus']);
+
+
+    Route::resource('admin/client',ClientController::class);
+    Route::get('/admin/client/status/{id}',[ClientController::class,'toggleStatus']);
+
     Route::get('/admin/logout', [AuthController::class, 'logout'])->name('admin.logout');
 });
 
@@ -134,6 +141,6 @@ Route::post('/comment/post/update/{id}', [CommentController::class, 'update'])->
 Route::get('/comment/post/delete/{id}', [CommentController::class, 'destroy'])->name('comment.destory');
 Route::get('/user/logout', [AuthController::class, 'logout'])->name('user.logout');
 
-Route::get('frontend/home',function(){
-    return view('frontend.home');
-});
+// Route::get('frontend/home',function(){
+//     return view('frontend.home');
+// });
