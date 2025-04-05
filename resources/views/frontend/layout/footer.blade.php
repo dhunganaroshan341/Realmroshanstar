@@ -4,7 +4,9 @@
             <div class="col-lg-3 mr-auto col-sm-6">
                 <div class="widget mb-5 mb-lg-0">
                     <div class="logo mb-4">
-                        <img src="{{ asset('assets/images/logo.png') }}" alt="" class="img-fluid">
+                        @if ($logo!=null)
+                        <img src="{{ asset('storage/' . $logo) }}" alt="" class="img-fluid">
+                        @endif
                     </div>
                 </div>
             </div>
@@ -15,7 +17,7 @@
 
                     <ul class="list-unstyled footer-menu lh-35">
                         @foreach ($services as $service)
-                        <li><a href="#!">{{ $service->name }}</a></li>
+                        <li><a href="{{ route('service-detail', $service->id) }}">{{ $service->name }}</a></li>
                         @endforeach
                     </ul>
                 </div>
@@ -29,7 +31,7 @@
                     <ul class="list-unstyled footer-menu lh-35">
                         {{-- <li><a href="#!">Terms &amp; Conditions</a></li>
                         <li><a href="#!">Privacy Policy</a></li> --}}
-                        <li><a href="#!">About Us</a></li>
+                        <li><a href="{{ route('about-us') }}">About Us</a></li>
                         <li><a href="#!">Blog</a></li>
                     </ul>
                 </div>

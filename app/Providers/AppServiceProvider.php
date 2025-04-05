@@ -27,7 +27,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        View::composer(['User.layout.header', 'frontend.layout.main','frontend.layout.footer', 'User.layout.main', 'User.layout.footer', 'User.contact', 'User.about'], function ($view) {
+        View::composer([ 'frontend.layout.main','frontend.layout.footer',  'frontend.contact'], function ($view) {
             $setting = Setting::first();
             $services=Service::where('status',1)->latest()->take(4)->get();
 

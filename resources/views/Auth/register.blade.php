@@ -73,7 +73,12 @@
                   <div class="mt-3 d-grid gap-2">
                     <button class="btn  btn-primary btn-lg fw-medium">SIGN UP</button>
                   </div>
-                  <div class="text-center mt-4 fw-light"> Already have an account? <a href="{{ route('login') }}" class="text-primary">Login</a>
+                  <div class="text-center mt-4 fw-light">
+                    Already have an account? <a href="{{ route('login') }}" class="text-primary">Login</a>
+                  </div>
+
+                  <div class="text-center mt-4 fw-light">
+                    <a href="{{ route('google.redirect') }}" class="text-primary"><img src="{{ asset('defaultImage/googleimg.webp') }}" width="200" alt="google"></a>
                   </div>
                 </form>
               </div>

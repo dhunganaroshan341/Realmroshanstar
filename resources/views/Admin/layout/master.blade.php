@@ -44,6 +44,12 @@
                             <span class="menu-title">Users</span>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('admin.setting') }}">
+                            <i class="mdi mdi-cog  menu-icon"></i>
+                            <span class="menu-title">Setting</span>
+                        </a>
+                    </li>
                     {{-- <li class="nav-item">
                         <a class="nav-link" href="{{ route('admin.frontend') }}">
                             <i class="mdi mdi-apps menu-icon"></i>
@@ -70,6 +76,19 @@
                     </li>
 
                     <li class="nav-item">
+                        <a class="nav-link" href="{{ route('client.index') }}">
+                            <i class="mdi mdi-account-group-outline menu-icon"></i>
+                            <span class="menu-title">Client </span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('service.index') }}">
+                            <i class="mdi mdi-face-agent menu-icon"></i>
+                            <span class="menu-title">Services </span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
                         <a class="nav-link" href="{{ route('admin.category') }}">
                             <i class="mdi mdi-grid-large menu-icon"></i>
                             <span class="menu-title">Category</span>
@@ -81,12 +100,7 @@
                             <span class="menu-title">Post</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('admin.setting') }}">
-                            <i class="mdi mdi-cog  menu-icon"></i>
-                            <span class="menu-title">Setting</span>
-                        </a>
-                    </li>
+
                      <li class="nav-item">
                         <a class="nav-link" href="{{ route('admin.contact') }}">
                             <i class="mdi mdi-contacts menu-icon"></i>
@@ -99,16 +113,11 @@
                             <span class="menu-title">Notice </span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('client.index') }}">
-                            <i class="mdi mdi-bullhorn menu-icon"></i>
-                            <span class="menu-title">Client </span>
-                        </a>
-                    </li>
+
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('service.index') }}">
-                            <i class="mdi mdi-bullhorn menu-icon"></i>
-                            <span class="menu-title">Services </span>
+                            <i class="mdi mdi-view-gallery menu-icon"></i>
+                            <span class="menu-title">Gallery </span>
                         </a>
                     </li>
                     <li class="nav-item">

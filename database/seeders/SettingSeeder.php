@@ -14,15 +14,15 @@ class SettingSeeder extends Seeder
     public function run(): void
     {
         $setting=new Setting();
-        $setting->title="Midas Technologies";
+        $setting->title="Realm Infotech";
         $setting->description=fake()->paragraph();
         $setting->work_description=fake()->paragraph();
-        $setting->email="jprakashchaudhary858@gmail.com";
-        $setting->address="Kupondole";
-        $setting->contact="9823681753";
+        $setting->email="realminfo@gmail.com";
+        $setting->address="Patan Dhoka";
+        $setting->contact="12345678";
         $setting->facebook_url="https://www.facebook.com/";
         $setting->twitter_url="https://en.wikipedia.org/wiki/Twitter";
-        $setting->github_url="https://github.com/prakash0604";
+        $setting->github_url="https://github.com";
         $setting->instagram_url="https://instagram.com";
         $setting->save();
     }

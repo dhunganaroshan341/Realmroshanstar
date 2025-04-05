@@ -19,10 +19,9 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'full_name',
-        'email',
         'password',
         'image',
-        'role','position','email','email_link','facebook_link','instagram_link','twitter_link','phonenumber','notes'
+        'role','position','email','email_link','facebook_link','instagram_link','twitter_link','phonenumber','notes','google_id'
     ];
 
     public function comments(){

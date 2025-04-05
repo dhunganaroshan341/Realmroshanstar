@@ -1,21 +1,25 @@
 <?php
 
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use Laravel\Socialite\Facades\Socialite;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\ClientController;
+use App\Http\Controllers\Admin\NoticeController;
+use App\Http\Controllers\UserFrontendController;
+use App\Http\Controllers\Admin\ContactController;
+use App\Http\Controllers\Admin\ServiceController;
+use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\HomeSliderController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\AdminDashboardController;
-use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Admin\ClientController;
-use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\FrontendController as AdminFrontendController;
-use App\Http\Controllers\Admin\NoticeController;
-use App\Http\Controllers\Admin\PostController;
-use App\Http\Controllers\Admin\SettingController;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\CommentController;
-use App\Http\Controllers\Admin\ServiceController;
-use App\Http\Controllers\UserFrontendController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,12 +36,29 @@ use App\Http\Controllers\UserFrontendController;
 //     return view('home');
 // });
 
-Route::middleware('isLogin')->group(function(){
+Route::middleware('isLogin')->group(function () {
 
     Route::get('/register', [AuthController::class, 'index'])->name('register');
     Route::post('/register', [AuthController::class, 'storeRegister'])->name('register.store');
     Route::get('/login', [AuthController::class, 'login'])->name('login');
     Route::post('/login/store', [AuthController::class, 'storeLogin'])->name('login.store');
+    Route::get('/auth/google/redirect', function () {
+        return Socialite::driver("google")->redirect();
+    })->name('google.redirect');
+    Route::get('/auth/google/callback', function (Request $request) {
+        $userdata = Socialite::driver("google")->user();
+        $user = User::updateOrCreate(
+            ['google_id' => $userdata->id,],
+            [
+                'full_name' => $userdata->name,
+                'email' => $userdata->email,
+                'role' => 'User',
+                'image' => $userdata->avatar,
+            ]
+        );
+        Auth::login($user);
+        return redirect()->route('first.index');
+    });
 });
 
 
@@ -68,15 +89,15 @@ Route::middleware('admin')->group(function () {
     Route::post('/admin/front-end', [AdminFrontendController::class, 'update'])->name('admin.frontend.update');
 
     // Site Datas
-    Route::get('/admin/site-data',[AdminFrontendController::class,'siteData'])->name('admin.siteData');
-    Route::post('/admin/site-data',[AdminFrontendController::class,'updateSiteData'])->name('admin.updateSiteData');
+    Route::get('/admin/site-data', [AdminFrontendController::class, 'siteData'])->name('admin.siteData');
+    Route::post('/admin/site-data', [AdminFrontendController::class, 'updateSiteData'])->name('admin.updateSiteData');
 
 
     // Setting
-    Route::get('/admin/setting',[SettingController::class,'index'])->name('admin.setting');
-    Route::post('/admin/setting',[SettingController::class,'store'])->name('admin.store.setting');
-    Route::get('/admin/setting/working/{id}',[SettingController::class,'destroyWorking']);
-    Route::post('/admin/setting/working',[SettingController::class,'addWorking']);
+    Route::get('/admin/setting', [SettingController::class, 'index'])->name('admin.setting');
+    Route::post('/admin/setting', [SettingController::class, 'store'])->name('admin.store.setting');
+    Route::get('/admin/setting/working/{id}', [SettingController::class, 'destroyWorking']);
+    Route::post('/admin/setting/working', [SettingController::class, 'addWorking']);
     // Route::resource('users',UserController::class);
 
     // Testimonial
@@ -108,19 +129,19 @@ Route::middleware('admin')->group(function () {
     Route::get('/admin/post/status/{id}', [PostController::class, 'statusToggle'])->name('admin.post.status');
     Route::get('/admin/post/comment/detail/{id}', [PostController::class, 'postComment'])->name('admin.post.comment');
 
-    Route::get('/admin/contact',[ContactController::class,'index'])->name('admin.contact');
-    Route::get('/admin/contact/get-data',[ContactController::class,'getContact'])->name('admin.contact.get-data');
-    Route::get('/admin/contact/detail/{id}',[ContactController::class,'showDetail'])->name('admin.contact.detail');
-    Route::get('/admin/contact/delete/{id}',[ContactController::class,'destroy'])->name('admin.contact.delete');
-    Route::resource('/admin/notice',NoticeController::class);
-    Route::get('/admin/notice/status/{id}',[NoticeController::class,'toggleStatus']);
+    Route::get('/admin/contact', [ContactController::class, 'index'])->name('admin.contact');
+    Route::get('/admin/contact/get-data', [ContactController::class, 'getContact'])->name('admin.contact.get-data');
+    Route::get('/admin/contact/detail/{id}', [ContactController::class, 'showDetail'])->name('admin.contact.detail');
+    Route::get('/admin/contact/delete/{id}', [ContactController::class, 'destroy'])->name('admin.contact.delete');
+    Route::resource('/admin/notice', NoticeController::class);
+    Route::get('/admin/notice/status/{id}', [NoticeController::class, 'toggleStatus']);
 
-    Route::resource('admin/service',ServiceController::class);
-    Route::get('/admin/service/status/{id}',[ServiceController::class,'toggleStatus']);
+    Route::resource('admin/service', ServiceController::class);
+    Route::get('/admin/service/status/{id}', [ServiceController::class, 'toggleStatus']);
 
 
-    Route::resource('admin/client',ClientController::class);
-    Route::get('/admin/client/status/{id}',[ClientController::class,'toggleStatus']);
+    Route::resource('admin/client', ClientController::class);
+    Route::get('/admin/client/status/{id}', [ClientController::class, 'toggleStatus']);
 
     Route::get('/admin/logout', [AuthController::class, 'logout'])->name('admin.logout');
 });
@@ -132,9 +153,11 @@ Route::post('/contact-us', [UserFrontendController::class, 'storeContactUs'])->n
 Route::get('/about-us', [UserFrontendController::class, 'aboutUs'])->name('about-us');
 Route::get('/service', [UserFrontendController::class, 'service'])->name('service');
 Route::get('/service/detail/{id}', [UserFrontendController::class, 'servicedetail'])->name('service-detail');
+Route::get('/blog/detail/{id}', [UserFrontendController::class, 'blogdetail'])->name('blog-detail');
+Route::get('/blog', [UserFrontendController::class, 'blog'])->name('blog');
 
-Route::get('/post', [UserFrontendController::class, 'post'])->name('post');
-Route::get('/post/{id}', [UserFrontendController::class, 'singlePost'])->name('single.post');
+// Route::get('/post', [UserFrontendController::class, 'post'])->name('post');
+// Route::get('/post/{id}', [UserFrontendController::class, 'singlePost'])->name('single.post');
 
 // Comment
 Route::post('/comment/store', [CommentController::class, 'store'])->name('store.comment');

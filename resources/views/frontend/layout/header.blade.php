@@ -34,7 +34,9 @@
     <nav class="navbar  sticky-top navbar-expand-lg navigation" id="navbar">
         <div class="container">
             <a class="navbar-brand" href="{{ route('first.index') }}">
-                <img src="{{ asset('assets/images/logo.png') }}" alt="" class="img-fluid">
+                @if ($logo && $logo!=null)
+                <img src="{{ asset('storage/' . $logo) }}" alt="" class="img-fluid">
+                @endif
             </a>
             <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarmain"
                 aria-controls="navbarmain" aria-expanded="false" aria-label="Toggle navigation">
@@ -45,9 +47,8 @@
                     <li class="nav-item active"><a class="nav-link" href="{{ route('first.index') }}">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('about-us') }}">About</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('service') }}">Services</a></li>
-                    <li class="nav-item"><a class="nav-link" href="faq.html">FAQ</a></li>
                     <li class="nav-item ">
-                        <a class="nav-link " href="blog.html">Blog</a>
+                        <a class="nav-link " href="{{ route('blog') }}">Blog</a>
                     </li>
                     <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
                 </ul>
