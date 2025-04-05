@@ -28,6 +28,10 @@ a{
     background: #fff;
     border-radius: 0px;
 }
+.navbar-brand{
+    width:1.3em;
+    height:1.3em;
+}
 
 .header-top-bar {
     background: var(--realmbg-white);

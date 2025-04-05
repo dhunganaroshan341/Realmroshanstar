@@ -137,3 +137,11 @@ Route::get('/user/logout', [AuthController::class, 'logout'])->name('user.logout
 Route::get('frontend/home',function(){
     return view('frontend.home');
 });
+Route::get('gallery',function(){
+    return view('frontend.gallery');
+});
+Route::get('services',function(){
+    return view('frontend.services');
+});
+
+

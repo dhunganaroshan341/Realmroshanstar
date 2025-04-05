@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <meta name="_token" content="{{ csrf_token() }}">
+    @stack('styles')
 </head>
 <body>
     <header>
@@ -58,7 +59,7 @@
 
         <nav class="navbar  sticky-top navbar-expand-lg navigation" id="navbar">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a  class="navbar-brand" href="{{ url('/') }}">
                     <img src="{{ asset('assets/images/logo.png') }}" alt="" class="img-fluid">
                 </a>
                 <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarmain" aria-controls="navbarmain" aria-expanded="false" aria-label="Toggle navigation">
@@ -224,3 +225,4 @@ $.ajaxSetup({
 </script>
 
 @yield('extraJs')
+@stack('scripts')
