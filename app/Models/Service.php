@@ -11,8 +11,4 @@ class Service extends Model
     protected $table = 'services';
     protected $fillable = ['image','name', 'short_desc','description', 'status'];
 
-    public function featuredServices()
-    {
-        return $this->hasMany(FeaturedService::class, 'service_id', 'id');
-    }
 }

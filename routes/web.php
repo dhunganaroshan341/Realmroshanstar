@@ -130,6 +130,8 @@ Route::get('/', [UserFrontendController::class, 'home'])->name('first.index');
 Route::get('/contact-us', [UserFrontendController::class, 'contactUs'])->name('contact-us');
 Route::post('/contact-us', [UserFrontendController::class, 'storeContactUs'])->name('store.contact-us');
 Route::get('/about-us', [UserFrontendController::class, 'aboutUs'])->name('about-us');
+Route::get('/service', [UserFrontendController::class, 'service'])->name('service');
+Route::get('/service/detail/{id}', [UserFrontendController::class, 'servicedetail'])->name('service-detail');
 
 Route::get('/post', [UserFrontendController::class, 'post'])->name('post');
 Route::get('/post/{id}', [UserFrontendController::class, 'singlePost'])->name('single.post');

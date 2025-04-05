@@ -11,6 +11,7 @@ use App\Models\Contact;
 use App\Models\Post;
 use App\Models\HomeSlide;
 use App\Models\Notice;
+use App\Models\Service;
 use App\Models\Setting;
 use App\Models\Testimonial;
 
@@ -32,6 +33,23 @@ class UserFrontendController extends Controller
         return view('frontend.about',compact('users','frontend'));
     }
 
+    public function service(){
+        $services=Service::where('status',1)->get();
+        return view('frontend.services',compact('services'));
+    }
+
+    public function servicedetail($id){
+        $serviceDetail=Service::find($id);
+        $posts = Post::with('category', 'postImages')
+        ->latest()
+        ->take(4)
+        ->get();
+   if(!$serviceDetail || !$posts){
+            abort('404');
+        }
+
+        return view('frontend.service-detail',compact('serviceDetail','posts'));
+    }
     public function contactUs(){
         return view('User.contact',);
     }

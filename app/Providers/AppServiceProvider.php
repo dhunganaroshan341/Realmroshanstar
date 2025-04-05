@@ -29,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
     {
         View::composer(['User.layout.header', 'frontend.layout.main','frontend.layout.footer', 'User.layout.main', 'User.layout.footer', 'User.contact', 'User.about'], function ($view) {
             $setting = Setting::first();
-            $services=Service::where('status','1')->get();
+            $services=Service::where('status',1)->latest()->take(4)->get();
 
             $view->with([
                 'email' => $setting->email ?? '',
