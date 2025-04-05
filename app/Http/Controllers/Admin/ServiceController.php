@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ServiceRequest;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -92,7 +93,7 @@ class ServiceController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ServiceRequest $request)
     {
         try {
             $data = $request->only(['name', 'short_desc', 'description']);
@@ -133,7 +134,7 @@ class ServiceController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ServiceRequest $request, string $id)
     {
         try {
             $services = Service::find($id);
@@ -156,11 +157,38 @@ class ServiceController extends Controller
         }
     }
 
+    public function toggleStatus($id)
+    {
+        try {
+            $data = Service::find($id);
+
+            if ($data->status === 1) {
+                $data->status = 0;
+            } else {
+                $data->status = 1;
+            }
+            $data->save();
+            return response()->json(['success' => true, 'message' => 'Status Changes'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => $e->getMessage()]);
+        }
+    }
+
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $data = Service::find($id);
+            if ($data->image) {
+                Storage::disk('public')->delete($data->image);
+            }
+            $data->delete();
+
+            return response()->json(['success' => true]);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => $e->getMessage()]);
+        }
     }
 }

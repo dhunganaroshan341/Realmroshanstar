@@ -25,6 +25,10 @@ function getServices()
 {
     // return  null;
     return FeaturedService::with('service')->get()->pluck('service');
+}function getAllServices()
+{
+    // return  null;
+    return Service::all();
 }
 
 function getLatestBlog(){

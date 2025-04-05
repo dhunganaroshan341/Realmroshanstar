@@ -100,7 +100,13 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('notice.index') }}">
+                        <a class="nav-link" href="{{ route('client.index') }}">
+                            <i class="mdi mdi-bullhorn menu-icon"></i>
+                            <span class="menu-title">Client </span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('service.index') }}">
                             <i class="mdi mdi-bullhorn menu-icon"></i>
                             <span class="menu-title">Services </span>
                         </a>

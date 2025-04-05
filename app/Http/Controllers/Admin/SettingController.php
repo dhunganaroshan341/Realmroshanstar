@@ -54,6 +54,8 @@ class SettingController extends Controller
         try {
             // dd($request->all());
             $setting = Setting::first();
+            $data = $request->validated();
+
             if ($request->hasFile('logo')) {
                 $folder = 'images/logo/';
                 if ($setting && $setting->logo != null) {
@@ -64,10 +66,39 @@ class SettingController extends Controller
                 $data['logo'] = $imagepath;
             }
 
-            $data = $request->validated();
 
             if (isset($data['logo'])) {
                 $data['logo'] = $imagepath;
+            }
+
+            if ($request->hasFile('welcome_image')) {
+                $folder = 'images/welcome_image/';
+                if ($setting && $setting->welcome_image != null) {
+                    Storage::disk('public')->delete($setting->welcome_image);
+                }
+                $imagename = time() . '.' . $request->welcome_image->getClientOriginalName();
+                $imagepath = $request->welcome_image->storeAs($folder, $imagename, 'public');
+                $data['welcome_image'] = $imagepath;
+            }
+
+
+            if (isset($data['welcome_image'])) {
+                $data['welcome_image'] = $imagepath;
+            }
+
+            if ($request->hasFile('about_image')) {
+                $folder = 'images/about_image/';
+                if ($setting && $setting->about_image != null) {
+                    Storage::disk('public')->delete($setting->about_image);
+                }
+                $imagename = time() . '.' . $request->about_image->getClientOriginalName();
+                $imagepath = $request->about_image->storeAs($folder, $imagename, 'public');
+                $data['about_image'] = $imagepath;
+            }
+
+
+            if (isset($data['about_image'])) {
+                $data['about_image'] = $imagepath;
             }
             // dd($data);
             $setting->update($data);
