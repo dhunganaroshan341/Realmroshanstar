@@ -5,7 +5,9 @@
                 <div class="widget mb-5 mb-lg-0">
                     <div class="logo mb-4">
                         @if ($logo!=null)
-                        <img src="{{ asset('storage/' . $logo) }}" alt="" class="img-fluid">
+                        <img src="{{ asset('storage/' . $logo) }}" alt=""  class="img-fluid">
+                        @else
+                        <img src="{{ asset('defaultImage/defaultlogo.png') }}" alt="" width="100" height="100" class="img-fluid">
                         @endif
                     </div>
                 </div>
@@ -70,20 +72,12 @@
 
         <div class="footer-btm py-4 mt-5">
             <div class="row align-items-center justify-content-between">
-                <div class="col-lg-6">
-                    <div class="copyright">
+                <div class="col-lg-12">
+                    <div class="copyright text-center">
                         Copyright © {{ date('Y') }} {{ $title }}
                     </div>
                 </div>
 
-            </div>
-
-            <div class="row">
-                <div class="col-lg-4">
-                    <a class="backtop scroll-top-to reveal" href="#top">
-                        <i class="icofont-long-arrow-up"></i>
-                    </a>
-                </div>
             </div>
         </div>
     </div>

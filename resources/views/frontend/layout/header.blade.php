@@ -35,7 +35,9 @@
         <div class="container">
             <a class="navbar-brand" href="{{ route('first.index') }}">
                 @if ($logo && $logo!=null)
-                <img src="{{ asset('storage/' . $logo) }}" alt="" class="img-fluid">
+                <img src="{{ asset('storage/' . $logo) }}" alt="" class="img-fluid" width="100" height="100">
+                @else
+                <img src="{{ asset('defaultImage/defaultlogo.png') }}" alt="" width="100" height="100" class="img-fluid">
                 @endif
             </a>
             <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarmain"

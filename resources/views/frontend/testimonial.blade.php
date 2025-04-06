@@ -1,6 +1,6 @@
 <style>
     .testimonial-card {
-        background: linear-gradient(145deg, #e96565, #a1838300);
+        background: linear-gradient(145deg, #0d6efd, #a1838300);
         border-radius: 20px;
         box-shadow: 8px 8px 16px #d1d9e6, -8px -8px 16px #ffffff;
         transition: transform 0.3s ease;
