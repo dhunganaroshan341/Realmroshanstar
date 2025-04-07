@@ -51,8 +51,8 @@ class ServiceController extends Controller
                     <img src="' . $dataimage . '" width="50" height="50" onerror="this.src=\''.$defaultImage.'\'"/>
                     </td>';
                 })
-                ->addColumn('description', function ($item) {
-                    return Str::limit(strip_tags($item->description), 20);
+                ->addColumn('short_desc', function ($item) {
+                    return Str::limit(strip_tags($item->short_desc), 20);
                 })
                 ->addColumn('status', function ($status) {
                     $checked = $status->status == '1' ? 'checked' : '';

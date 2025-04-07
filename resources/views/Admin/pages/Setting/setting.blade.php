@@ -1,7 +1,7 @@
 @extends('Admin.layout.master')
 @section('content')
     <style>
-        <style>
+
 
         /* Match Select2 with Bootstrap's form-select */
         .select2-container .select2-selection--multiple {
@@ -39,7 +39,7 @@
         }
     </style>
 
-    </style>
+
     <div class="container-fluid">
         <span class="mt-2 mb-4"><span class="text-danger">Note:</span> (<span class="text-danger">*</span>) symbol represent that the field is required</span>
         <div class="card p-3">

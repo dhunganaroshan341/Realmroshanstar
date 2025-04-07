@@ -1,4 +1,14 @@
 @extends('frontend.layout.main')
+@php
+    $cta = \App\Models\Cta::first();
+@endphp
+@push('styles')
+<style>
+
+</style>
+
+@endpush
+
 @section('content')
     <section class="hero">
         <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
@@ -60,15 +70,15 @@
     </section>
 
 
-    <section class="section-4 py-5 text-center">
+    <section class="cta-banner py-5 text-center" style="background: url('{{ asset('storage/' . $cta->image) }}') no-repeat center center; background-size: cover;">
         <div class="hero-background-overlay"></div>
         <div class="container">
             <div class="help-container">
-                <h1 class="title">Do you need help?</h1>
-                <p class="card-text mt-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi ipsum,
+                <h1 class="title">{{ isset($cta)?$cta->title:'Call Us Now' }}</h1>
+                <p class="card-text mt-3">{{ isset($cta->description)?$cta->description:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi ipsum,
                     odit velit exercitationem praesentium error id iusto dolorem expedita nostrum eius atque?
-                    Aliquam ab reprehenderit animi sapiente quasi, voluptate dolorum?</p>
-                <a href="#" class="btn btn-primary mt-3">Call Us Now <i class="fa-solid fa-angle-right"></i></a>
+                    Aliquam ab reprehenderit animi sapiente quasi, voluptate dolorum?' }}</p>
+                <a href="{{ route('contact-us') }}" class="btn btn-primary mt-3">Contact Us <i class="fa-solid fa-angle-right"></i></a>
             </div>
         </div>
     </section>

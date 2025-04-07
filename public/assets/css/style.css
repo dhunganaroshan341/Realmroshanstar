@@ -64,7 +64,7 @@ a{
 }
 .hero .block {
     z-index: 999;
-    position: relative;  
+    position: relative;
 }
 
 .hero .block span {
@@ -121,7 +121,7 @@ a{
 .hero-small .block {
     width: 100%;
     z-index: 999;
-    position: relative;  
+    position: relative;
 }
 
 .hero-small .block span {
@@ -180,7 +180,7 @@ a{
 }
 
 .section-3{
-    background-color: #f9f9f9;    
+    background-color: #f9f9f9;
 }
 
 .section-3 .cards{
@@ -275,39 +275,39 @@ a{
     justify-content:center;
     border-radius: 5PX;
     color: #000;
-    
+
 }
 
-.section-4{
-    background-image: url('../images/banner22.jpg');
+.cta-banner{
     background-position: center center;
+
     min-height: 300px;
     position: relative;
     display: flex;
     align-items: center;
 }
 
-.section-4  .btn-primary{
+.cta-banner  .btn-primary{
     padding: 10px 25px;
     text-transform: uppercase;
 }
 
-.section-4  .btn-primary i{
+.cta-banner  .btn-primary i{
     margin-left: 10px;
 }
 
-.section-4 .title{
+.cta-banner .title{
     color: #FFF;
 }
 
-.section-4 .help-container{
+.cta-banner .help-container{
     z-index: 99;
     position: relative;
     padding-left: 100px;
     padding-left: 100px;
 }
 
-.section-4 .help-container p{
+.cta-banner .help-container p{
     color: rgb(255, 255, 255, 0.8);
 }
 
@@ -397,7 +397,7 @@ a{
     background-image: url("data:image/svg+xml,%0A%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23FFF'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
 }
 
-.contact-box a{    
+.contact-box a{
     color:#6F8BA4;
 }
 

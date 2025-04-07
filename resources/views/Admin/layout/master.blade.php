@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-
+@php
+    $theSetting = \App\Models\Setting::first();
+    $theLogo = $theSetting->logo;
+    $theTitle = $theSetting->title;
+@endphp
 <header>
     @include('Admin.layout.header')
 </header>
@@ -19,7 +23,7 @@
                 </div>
                 <div>
                     <a class="navbar-brand brand-logo" href="{{ route('admin.dashboard') }}">
-                        <img src="{{ asset('admin/images/logo.svg') }}" alt="logo" />
+                        <img src="{{ asset($theLogo) }}" alt="logo" />
                     </a>
                     <a class="navbar-brand brand-logo-mini" href="index.html">
                         <img src="{{ asset('admin/images/logo-mini.svg') }}" alt="logo" />
@@ -118,6 +122,11 @@
                         <a class="nav-link" href="{{ route('service.index') }}">
                             <i class="mdi mdi-view-gallery menu-icon"></i>
                             <span class="menu-title">Gallery </span>
+                        </a>
+                    </li><li class="nav-item">
+                        <a class="nav-link" href="{{ route('cta.index') }}">
+                            <i class="mdi mdi-book-open-outline"></i>
+                            <span class="menu-title">cta </span>
                         </a>
                     </li>
                     <li class="nav-item">

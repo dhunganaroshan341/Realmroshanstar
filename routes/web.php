@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CtaController;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -46,11 +47,12 @@ Route::middleware('isLogin')->group(function () {
         return Socialite::driver("google")->redirect();
     })->name('google.redirect');
     Route::get('/auth/google/callback', function (Request $request) {
-        $userdata = Socialite::driver("google")->user();
+        $userdata = Socialite::driver( "google")->user();
         $user = User::updateOrCreate(
             ['google_id' => $userdata->id,],
             [
                 'full_name' => $userdata->name,
+                'email' => $userdata->email,
                 'email' => $userdata->email,
                 'role' => 'User',
                 'image' => $userdata->avatar,
@@ -83,6 +85,9 @@ Route::middleware('admin')->group(function () {
     Route::get('/admin/home-slide/delete/{id}', [HomeSliderController::class, 'destory'])->name('admin.homeslide.destory');
     Route::get('/admin/home-slide/status/{id}', [HomeSliderController::class, 'statusToggle'])->name('admin.homeslide.status');
 
+Route::get('cta',  [CtaController::class,'index'])->name('cta.index');
+Route::post('cta',  [CtaController::class,'store'])->name('cta.store');
+Route::post('cta/update',  [CtaController::class,'update'])->name('cta.update');
 
     // FrontEnd
     Route::get('/admin/front-end', [AdminFrontendController::class, 'index'])->name('admin.frontend');
