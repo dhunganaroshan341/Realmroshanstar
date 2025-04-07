@@ -23,17 +23,21 @@ class UserController extends Controller
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('image', function ($item) {
-                    if ($item->image != null) {
+                    if ($item->image != null && $item->role == 'Admin') {
                         $url = asset('storage/' . $item->image); // Get image URL
                         $defaultImage = asset('defaultImage/defaultimage.webp');
-                        return ' <td class="py-1"><img src="' . $url . '" width="50" height="50" onerror="this.src=\''.$defaultImage.'\"/></td>';
+                        return ' <td class="py-1"><img src="' . $url . '" width="50" height="50" onerror="this.src=\'' . $defaultImage . '\"/></td>';
+                    } elseif (($item->image != null && $item->role == 'User')) {
+                        $defaultImage = asset('defaultImage/defaultimage.webp');
+                        return ' <td class="py-1"><img src="' . $item->image . '" width="50" height="50" onerror="this.src=\'' . $defaultImage . '\"/></td>';
                     } else {
                         $url = asset('defaultImage/defaultimage.webp');
                         return ' <td class="py-1"><img src="' . $url . '" width="50" height="50"/></td>';
                     }
                 })
                 ->addColumn('action', function ($data) {
-                    return view('Admin.Button.button', compact('data'));
+                    $user="User";
+                    return view('Admin.Button.button', compact('data','user'));
                 })
                 ->rawColumns(['action', 'image'])
                 ->make(true);

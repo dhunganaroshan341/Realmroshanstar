@@ -1,6 +1,7 @@
 @extends('frontend.layout.main')
 @section('content')
     <section class="hero">
+        @include('frontend.notice')
         <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
 
@@ -76,4 +77,10 @@
     <section class="section-3 py-5">
         @include('frontend.testimonial')
     </section>
+
+    <script>
+        $(document).ready(function(){
+            $("#staticBackdrop").modal("show");
+        })
+    </script>
 @endsection
