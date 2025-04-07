@@ -21,6 +21,28 @@
     </section>
     <div class="container">
         <!--Grid row-->
+
+        <!-- Modal -->
+        @if (auth())
+            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">Google Login</h5>
+                        </div>
+                        <div class="modal-body">
+                            <div class="card" style="width: 100%;">
+                                <div class="card-body">
+                                    <a href="{{ route('google.redirect') }}"><img src="{{ asset('defaultImage/googleimg.webp') }}" width="100%" alt="" srcset=""></a>
+                                    <h5 class="card-title text-center mt-3 mb-3">Please Login to ready more.</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
         <div class="row">
             <!--Grid column-->
             <div class="col-md-12 mb-4">
@@ -52,12 +74,12 @@
 
                     <div class="row align-items-center mt-2 mb-4">
                         <div class="col-lg-4 text-center text-lg-start mb-3 m-lg-0">
-                            @if ($detail->createdBy->image!=null)
-                            <img src="{{ asset('storage/' . $detail->createdBy->image) }}"
-                            class="rounded shadow-1-strong me-2" height="35" alt="" loading="lazy" />
+                            @if ($detail->createdBy->image != null)
+                                <img src="{{ asset('storage/' . $detail->createdBy->image) }}"
+                                    class="rounded shadow-1-strong me-2" height="35" alt="" loading="lazy" />
                             @else
-                            <img src="{{ asset('defaultImage/defaultimage.webp') }}"
-                            class="rounded shadow-1-strong me-2" height="35" alt="" loading="lazy" />
+                                <img src="{{ asset('defaultImage/defaultimage.webp') }}"
+                                    class="rounded shadow-1-strong me-2" height="35" alt="" loading="lazy" />
                             @endif
 
                             <span> Published <u>{{ $detail->created_at->format('d M Y') }}</u> by</span>
@@ -72,7 +94,7 @@
                 <!--Section: Text-->
                 <section>
                     <p>
-                       {!! $detail->description !!}
+                        {!! $detail->description !!}
 
                     </p>
 
@@ -89,20 +111,25 @@
                             {{-- <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(23).jpg"
                                 class="img-fluid shadow-1-strong rounded" alt="" /> --}}
 
-                                @if ($detail->createdBy->image!=null)
-                            <img src="{{ asset('storage/' . $detail->createdBy->image) }}"
-                            class="img-fluid rounded shadow-1-strong " height="100" width="100" alt="image" loading="lazy" />
+                            @if ($detail->createdBy->image != null)
+                                <img src="{{ asset('storage/' . $detail->createdBy->image) }}"
+                                    class="img-fluid rounded shadow-1-strong " height="100" width="100" alt="image"
+                                    loading="lazy" />
                             @else
-                            <img src="{{ asset('defaultImage/defaultimage.webp') }}"
-                            class="img-fluid rounded shadow-1-strong " height="100" width="100" alt="image" loading="lazy" />
+                                <img src="{{ asset('defaultImage/defaultimage.webp') }}"
+                                    class="img-fluid rounded shadow-1-strong " height="100" width="100" alt="image"
+                                    loading="lazy" />
                             @endif
                         </div>
 
                         <div class="col-9">
                             <p class="mb-2"><strong>{{ $detail->createdBy->full_name }}</strong></p>
-                            <a href="{{ $detail->createdBy->facebook_link }}" class="text-dark"><i class="fab fa-facebook-f me-1"></i></a>
-                            <a href="{{ $detail->createdBy->twitter_link }}" class="text-dark"><i class="fab fa-twitter me-1"></i></a>
-                            <a href="{{ $detail->createdBy->instagram_link }}" class="text-dark"><i class="fab fa-instagram me-1"></i></a>
+                            <a href="{{ $detail->createdBy->facebook_link }}" class="text-dark"><i
+                                    class="fab fa-facebook-f me-1"></i></a>
+                            <a href="{{ $detail->createdBy->twitter_link }}" class="text-dark"><i
+                                    class="fab fa-twitter me-1"></i></a>
+                            <a href="{{ $detail->createdBy->instagram_link }}" class="text-dark"><i
+                                    class="fab fa-instagram me-1"></i></a>
                             <p>
                                 {{ $detail->notes }}
                             </p>
@@ -117,42 +144,40 @@
 
                     <!-- Comment -->
                     @foreach ($comments as $comment)
-                    <div class="row mb-4">
-                        <div class="col-2">
-                            @if ($comment->user->image !=null)
-                            <img src="{{ $comment->user->image }}"
-                                class="img-fluid shadow-1-strong rounded" alt="" />
-                            @else
-
-                            <img src="{{ asset('defaultImage/defaultimage.webp') }}"
-                                class="img-fluid shadow-1-strong rounded" alt="" />
-
-                            @endif
-                        </div>
-
-                        <div class="col-10">
-                            <p class="mb-2"><strong>{{ $comment->user->full_name }}</strong></p>
-                            <p>
-                                {{ $comment->content }}
-                            </p>
-                            <div class="comment-content">
-                                <p>
-                                    <a type="button" class="btnEditPost" data-id="{{ $comment->id }}">
-                                        <i class="bi bi-pen"></i>
-                                    </a>
-                                    <a type="button" class="btnDeletePost" data-id="{{ $comment->id }}">
-                                        <i class="bi bi-trash"></i>
-                                    </a>
-                                </p>
-                                <form id="updatePostForm">
-                                    <div class="fetchEditComment">
-
-                                    </div>
-                                </form>
+                        <div class="row mb-4">
+                            <div class="col-2">
+                                @if ($comment->user->image != null)
+                                    <img src="{{ $comment->user->image }}" class="img-fluid shadow-1-strong rounded"
+                                        alt="" />
+                                @else
+                                    <img src="{{ asset('defaultImage/defaultimage.webp') }}"
+                                        class="img-fluid shadow-1-strong rounded" alt="" />
+                                @endif
                             </div>
-                        </div>
 
-                    </div>
+                            <div class="col-10">
+                                <p class="mb-2"><strong>{{ $comment->user->full_name }}</strong></p>
+                                <p>
+                                    {{ $comment->content }}
+                                </p>
+                                <div class="comment-content">
+                                    <p>
+                                        <a type="button" class="btnEditPost" data-id="{{ $comment->id }}">
+                                            <i class="bi bi-pen"></i>
+                                        </a>
+                                        <a type="button" class="btnDeletePost" data-id="{{ $comment->id }}">
+                                            <i class="bi bi-trash"></i>
+                                        </a>
+                                    </p>
+                                    <form id="updatePostForm">
+                                        <div class="fetchEditComment">
+
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                        </div>
                     @endforeach
 
                 </section>
@@ -166,16 +191,18 @@
                         <!-- Message input -->
                         <div class="form-outline mb-4" data-mdb-input-init>
                             @csrf
-                            <input type="hidden" name="commentable_id" id="commentable_id" value="{{ $detail->id }}">
+                            <input type="hidden" name="commentable_id" id="commentable_id"
+                                value="{{ $detail->id }}">
                             <input type="hidden" name="commentable_type" id="commentable_type"
-                            value="{{ isset($detail) ? 'App\\Models\\Post' : '' }}">
+                                value="{{ isset($detail) ? 'App\\Models\\Post' : '' }}">
                             <textarea class="form-control" id="content" name="content" rows="4"></textarea>
                             <label class="form-label" for="form4Example3">Text</label>
                             <p id="validationErrors" class="alert alert-danger d-none mt-2"></p>
                         </div>
 
                         <!-- Submit button -->
-                        <button type="submit" class="btn btn-primary btn-block mb-4"  id="commentBtn" data-mdb-ripple-init>
+                        <button type="submit" class="btn btn-primary btn-block mb-4" id="commentBtn"
+                            data-mdb-ripple-init>
                             Comment
                         </button>
                     </form>
@@ -190,6 +217,8 @@
     <script>
         $(document).ready(function() {
             // Add Comment
+            $("#staticBackdrop").modal("show");
+
             $("#addComment").submit(function(event) {
                 event.preventDefault();
                 $("#commentBtn").prop("disabled", true);
@@ -261,7 +290,7 @@
                     formdata.append("commentable_id", $("#commentable_id").val());
                     formdata.append("commentable_type", $("#commentable_type").val());
                     formdata.append("content", $("#editContent").val());
-                    $("#updateBtn").prop("disabled",true);
+                    $("#updateBtn").prop("disabled", true);
                     $.ajax({
                         type: "post",
                         url: "/comment/post/update/" + id,
@@ -276,8 +305,8 @@
                         error: function(xhr) {
                             console.log(xhr);
                         },
-                        complete:function(){
-                            $("#updateBtn").prop("disabled",false);
+                        complete: function() {
+                            $("#updateBtn").prop("disabled", false);
                         }
                     })
                 })
