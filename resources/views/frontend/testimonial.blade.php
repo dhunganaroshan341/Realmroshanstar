@@ -1,35 +1,80 @@
+@push('styles')
 <style>
-    .testimonial-card {
-        background: linear-gradient(145deg, #0d6efd, #a1838300);
-        border-radius: 20px;
-        box-shadow: 8px 8px 16px #d1d9e6, -8px -8px 16px #ffffff;
-        transition: transform 0.3s ease;
+    @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;800&display=swap');
+
+    figure.snip-testimonial {
+        font-family: 'Raleway', sans-serif;
+        background: #fff;
+        border-radius: 1%;
+        padding: 30px;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        margin: 20px 10px;
+        text-align: center;
+        transition: all 0.3s ease-in-out;
     }
 
-    .testimonial-card:hover {
+    figure.snip-testimonial:hover {
         transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
     }
 
-    .quote-icon {
-        font-size: 4rem;
-        color: #6366f1;
-        opacity: 0.2;
+    figure.snip-testimonial img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    padding:1%;
+    border-radius: 10px; /* More rounded corners like the ChatGPT chatbox */
+    margin-bottom: 15px;
+    border: 3px solid #121215; /* Adjust the color if you want it to match the theme more closely */
+}
+
+
+    figure.snip-testimonial blockquote {
+        font-style: italic;
+        font-size: 0.95em;
+        color: #555;
+        margin: 20px 0;
+        line-height: 1.6;
+        position: relative;
     }
 
-    .avatar {
-        width: 80px;
-        height: 80px;
-        border-radius: 50%;
-        object-fit: cover;
-        border: 4px solid #ffffff;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    figure.snip-testimonial blockquote::before,
+    figure.snip-testimonial blockquote::after {
+        content: '"';
+        font-size: 30px;
+        color: #ccc;
+        position: absolute;
+    }
+
+    figure.snip-testimonial blockquote::before {
+        left: -15px;
+        top: -10px;
+    }
+
+    figure.snip-testimonial blockquote::after {
+        right: -15px;
+        bottom: -10px;
+    }
+
+    figure.snip-testimonial .author h5 {
+        font-size: 1rem;
+        font-weight: 700;
+        color: #333;
+        margin-bottom: 0;
+    }
+
+    figure.snip-testimonial .author span {
+        display: block;
+        font-size: 0.85rem;
+        color: #888;
+        font-weight: 500;
     }
 
     .carousel-control-prev,
     .carousel-control-next {
         width: 40px;
         height: 40px;
-        background-color: #6366f1;
+        background-color: #6365f12c;
         border-radius: 50%;
         top: 50%;
         transform: translateY(-50%);
@@ -44,74 +89,52 @@
     }
 
     .carousel-indicators {
-        bottom: -50px;
+        bottom: -40px;
     }
 
     .carousel-indicators button {
-        width: 12px;
-        height: 12px;
+        width: 10px;
+        height: 10px;
         border-radius: 50%;
-        background-color: #6366f1;
-        opacity: 0.5;
+        background-color: #6365f1;
+        opacity: 0.3;
     }
 
     .carousel-indicators .active {
         opacity: 1;
     }
 </style>
+@endpush
+
 <div class="bg-light">
-    <div class="container-fluid py-5">
-        <h2 class="text-center mb-5">What Our Customers Say</h2>
+    <div class="container py-5">
+        <h2 class="text-center mb-5 fw-bold">What Our Customers Say</h2>
         <div class="row justify-content-center">
-            <div class="col-lg-8">
+            <div class="col-lg-10">
                 <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
-
-                        @foreach ($testimonials as $index=>$testimonial)
-                            <div class="carousel-item {{ $index ==1 ? 'active':'' }}">
-                                <div class="testimonial-card p-4 p-md-5">
-                                    <i class="bi bi-quote quote-icon position-absolute top-0 start-0 mt-3 ms-3"></i>
-                                    <div class="text-center mb-4">
-                                        <img src="{{ asset('storage/' . $testimonial->image) }}" alt="Avatar"
-                                            class="avatar mb-3">
-                                        <h5 class="mb-1">{{ $testimonial->name }}</h5>
-                                        <p class="text-muted mb-0">{{ $testimonial->designation }}</p>
-                                    </div>
-                                    <p class="lead text-center mb-0">"{!! $testimonial->description !!}"</p>
+                        @foreach ($testimonials->chunk(2) as $index => $testimonialChunk)
+                            <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
+                                <div class="row">
+                                    @foreach ($testimonialChunk as $testimonial)
+                                        <div class="col-md-6 d-flex align-items-stretch">
+                                            <figure class="snip-testimonial w-100">
+                                                <img src="{{ $testimonial->image }}" alt="{{ $testimonial->name }}">
+                                                <blockquote>
+                                                    {{ $testimonial->description ?? '...' }}
+                                                </blockquote>
+                                                <div class="author">
+                                                    <h5>{{ $testimonial->name ?? 'Anonymous' }}</h5>
+                                                    <span>{{ $testimonial->designation ?? 'Customer' }}</span>
+                                                </div>
+                                            </figure>
+                                        </div>
+                                    @endforeach
                                 </div>
                             </div>
                         @endforeach
-
-
-                        {{-- <div class="carousel-item">
-                            <div class="testimonial-card p-4 p-md-5">
-                                <i class="bi bi-quote quote-icon position-absolute top-0 start-0 mt-3 ms-3"></i>
-                                <div class="text-center mb-4">
-                                    <img src="https://randomuser.me/api/portraits/men/47.jpg" alt="Avatar"
-                                        class="avatar mb-3">
-                                    <h5 class="mb-1">Michael Chen</h5>
-                                    <p class="text-muted mb-0">Software Engineer</p>
-                                </div>
-                                <p class="lead text-center mb-0">"The level of customer support is outstanding. Whenever
-                                    I've had a question or issue, the team has been quick to respond and always goes
-                                    above and beyond to help."</p>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <div class="testimonial-card p-4 p-md-5">
-                                <i class="bi bi-quote quote-icon position-absolute top-0 start-0 mt-3 ms-3"></i>
-                                <div class="text-center mb-4">
-                                    <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Avatar"
-                                        class="avatar mb-3">
-                                    <h5 class="mb-1">Sophia Rodriguez</h5>
-                                    <p class="text-muted mb-0">Small Business Owner</p>
-                                </div>
-                                <p class="lead text-center mb-0">"As a small business owner, I was hesitant to invest in
-                                    new software, but this has paid for itself many times over. It's been a game-changer
-                                    for my company's efficiency."</p>
-                            </div>
-                        </div> --}}
                     </div>
+
                     <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel"
                         data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -122,13 +145,15 @@
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Next</span>
                     </button>
+
                     <div class="carousel-indicators">
-                        <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="0" class="active"
-                            aria-current="true" aria-label="Slide 1"></button>
-                        <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="1"
-                            aria-label="Slide 2"></button>
-                        <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="2"
-                            aria-label="Slide 3"></button>
+                        @foreach ($testimonials->chunk(2) as $index => $chunk)
+                            <button type="button" data-bs-target="#testimonialCarousel"
+                                data-bs-slide-to="{{ $index }}"
+                                class="{{ $index == 0 ? 'active' : '' }}"
+                                aria-current="{{ $index == 0 ? 'true' : 'false' }}"
+                                aria-label="Slide {{ $index + 1 }}"></button>
+                        @endforeach
                     </div>
                 </div>
             </div>

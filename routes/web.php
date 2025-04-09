@@ -20,6 +20,8 @@ use App\Http\Controllers\Admin\HomeSliderController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\FrontendController as AdminFrontendController;
+use App\Http\Controllers\Admin\GalleryAlbumController;
+use App\Http\Controllers\Admin\GalleryMediaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -138,15 +140,50 @@ Route::middleware('admin')->group(function () {
 
     Route::resource('admin/service', ServiceController::class);
     Route::get('/admin/service/status/{id}', [ServiceController::class, 'toggleStatus']);
+// gallery albums and media
+Route::get('gallery-album',[GalleryAlbumController::class,'index'])->name('gallery-album.index');
+Route::post('gallery-album/store',[GalleryAlbumController::class,'store'])->name('gallery-album.store');
+Route::put('gallery-album/update/{id}',[GalleryAlbumController::class,'update'])->name('gallery-album.update');
+Route::delete('gallery-album/delete/{id}',[GalleryAlbumController::class,'destroy'])->name('gallery-album.delete');
+Route::prefix('admin')->name('admin.')->group(function () {
+
+    // Gallery Album Resource Routes
+    Route::get('/gallery-albums', [GalleryAlbumController::class, 'index'])->name('gallery-albums.index');
+    Route::post('/gallery-albums', [GalleryAlbumController::class, 'store'])->name('gallery-albums.store');
+    Route::get('/gallery-albums/{id}', [GalleryAlbumController::class, 'detailGalleryAlbum'])->name('gallery-albums.detail');
+    Route::put('/gallery-albums/{id}', [GalleryAlbumController::class, 'update'])->name('gallery-albums.update');
+    Route::delete('/gallery-albums/{id}', [GalleryAlbumController::class, 'destroy'])->name('gallery-albums.destroy');
+    Route::patch('/gallery-albums/{id}/status', [GalleryAlbumController::class, 'statusToggle'])->name('gallery-albums.status');
+});
+Route::prefix('admin/gallery-media')->name('gallery-media.')->group(function () {
+    Route::get('/', [GallleryMediaController::class, 'index'])->name('index');
+    Route::get('/data', [GalleryMediaController::class, 'getGalleryData'])->name('data');
+    Route::post('/store', [GalleryMediaController::class, 'store'])->name('store');
+    Route::get('/detail/{id}', [GalleryMediaController::class, 'getDetail'])->name('detail');
+    Route::post('/update/{id}', [GalleryMediaController::class, 'update'])->name('update');
+    Route::post('/toggle-status/{id}', [GalleryMediaController::class, 'statusToggle'])->name('toggleStatus');
+    Route::delete('/delete/{id}', [GalleryMediaController::class, 'destroy'])->name('delete');
+});
 
 
+
+    Route::get('/admin/post/detail/{id}', [PostController::class, 'getDetail'])->name('admin.post.detail');
+
+    Route::get('/admin/post/delete/{id}', [PostController::class, 'destroy']);
+    Route::get('/admin/post/image/delete', [PostController::class, 'destoryImage']);
+    Route::get('/admin/post/status/{id}', [PostController::class, 'statusToggle'])->name('admin.post.status');
+    Route::get('/admin/post/comment/detail/{id}', [PostController::class, 'postComment'])->name('admin.post.comment');
+
+// end of gallery media
     Route::resource('admin/client', ClientController::class);
     Route::get('/admin/client/status/{id}', [ClientController::class, 'toggleStatus']);
 
     Route::get('/admin/logout', [AuthController::class, 'logout'])->name('admin.logout');
 });
 
-
+Route::get('/home',function(){
+    return view('frontend.home');
+});
 Route::get('/', [UserFrontendController::class, 'home'])->name('first.index');
 Route::get('/contact-us', [UserFrontendController::class, 'contactUs'])->name('contact-us');
 Route::post('/contact-us', [UserFrontendController::class, 'storeContactUs'])->name('store.contact-us');
@@ -166,6 +203,6 @@ Route::post('/comment/post/update/{id}', [CommentController::class, 'update'])->
 Route::get('/comment/post/delete/{id}', [CommentController::class, 'destroy'])->name('comment.destory');
 Route::get('/user/logout', [AuthController::class, 'logout'])->name('user.logout');
 
-// Route::get('frontend/home',function(){
-//     return view('frontend.home');
-// });
+Route::get('frontend/gallery',function(){
+    return view('frontend.gallery');
+});

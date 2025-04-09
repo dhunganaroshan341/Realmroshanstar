@@ -18,11 +18,11 @@
                     </button>
                 </div>
                 <div>
-                    <a class="navbar-brand brand-logo" href="{{ route('admin.dashboard') }}">
-                        <img src="{{ asset('admin/images/logo.svg') }}" alt="logo" />
+                    <a class="navbar-brand brand-logo" href="{{ url('/') }}">
+                        <img src="{{ $logo??asset('assets/images/logo.jpeg') }}" alt="logo" />
                     </a>
-                    <a class="navbar-brand brand-logo-mini" href="index.html">
-                        <img src="{{ asset('admin/images/logo-mini.svg') }}" alt="logo" />
+                    <a class="navbar-brand brand-logo-mini" href="{{ url('/') }}">
+                        <img src="{{ asset('admin/images/logo.png') }}" alt="logo" />
                     </a>
                 </div>
             </div>
@@ -115,7 +115,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('service.index') }}">
+                        <a class="nav-link" href="{{ route('gallery-album.index') }}">
                             <i class="mdi mdi-view-gallery menu-icon"></i>
                             <span class="menu-title">Gallery </span>
                         </a>

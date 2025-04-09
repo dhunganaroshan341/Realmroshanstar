@@ -28,7 +28,9 @@ class UserFrontendController extends Controller
         $notice = Notice::where('status', 'Active')->first();
         // dd($notice);
         $content_title="Home";
+
         return view('frontend.home', compact(['frontend', 'homeslides', 'testimonials', 'notice','content_title']));
+
     }
     public function aboutUs()
     {

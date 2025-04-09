@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
     <link rel="stylesheet" href="{{ asset('mdn/css/mdb.min.css') }}" />
 
+@stack('styles')
+
 
 </head>
 
@@ -33,6 +35,6 @@
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script src="{{ asset('assets/js/custom.js') }}"></script>
 <script type="text/javascript" src="{{ asset('mdn/js/mdb.umd.min.js') }}"></script>
-
+@stack('scripts')
 
 </html>
